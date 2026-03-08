@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Active Orders</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Active Orders</h2>
+
+    <p><strong>Remaining birds:</strong> <span th:text="${remaining}">0</span></p>
+
+    <a class="link" href="/admin/order/new">+ Manual Reservation</a>
+    <a class="link" href="/admin/inventory" style="margin-left:12px;">Inventory</a>
+    <a class="link" href="/admin/dashboard" style="margin-left:12px;">Dashboard</a>
+    <a class="link" href="/admin/history" style="margin-left:12px;">History</a>
+
+    <div th:if="${#lists.isEmpty(orders)}" class="card" style="margin-top:14px;">
+        <p>No active orders right now.</p>
+    </div>
+
+    <div th:each="o : ${orders}" class="card" style="margin-top:14px;">
+        <p><strong>Name:</strong> <span th:text="${o.customerName}"></span></p>
+        <p><strong>Phone:</strong> <span th:text="${o.phone}"></span></p>
+        <p><strong>Qty:</strong> <span th:text="${o.quantity}"></span></p>
+        <p><strong>Pickup Date:</strong> <span th:text="${o.formattedPickupDate}"></span></p>
+        <p><strong>Pickup Time:</strong> <span th:text="${o.formattedPickupTime}"></span></p>
+        <p th:if="${o.hasNotes()}"><strong>Notes:</strong> <span th:text="${o.notes}"></span></p>
+        <p><strong>Source:</strong> <span th:text="${o.source}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${o.status}"></span></p>
+
+        <form th:action="@{'/admin/orders/' + ${o.id} + '/fulfill'}"
+              method="get"
+              style="margin-top:10px;">
+            <button class="order-button" type="submit">Fulfill</button>
+        </form>
+
+        <form th:action="@{'/admin/orders/' + ${o.id} + '/cancel'}"
+              method="post"
+              style="margin-top:10px;">
+            <button class="order-button" type="submit" style="background:#7a1a1a;">Cancel (Restock)</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

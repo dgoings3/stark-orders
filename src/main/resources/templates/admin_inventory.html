@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Inventory</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+  <h2>Inventory</h2>
+
+  <div class="card">
+    <p><strong>Remaining:</strong> <span th:text="${inv.birdsRemaining}"></span></p>
+  </div>
+
+  <form class="form" method="post" th:action="@{/admin/inventory}">
+    <label>Birds Available (total ready)</label>
+    <input type="number" min="0" name="birdsAvailable" th:value="${inv.birdsAvailable}" required>
+
+    <label>Birds Lost</label>
+    <input type="number" min="0" name="birdsLost" th:value="${inv.birdsLost}" required>
+
+    <button class="order-button" type="submit">Save</button>
+  </form>
+
+  <a class="link" href="/admin/orders">View Orders</a>
+</div>
+</body>
+</html>

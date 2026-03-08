@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f1ea;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #2e2b26;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    padding: 40px;
+    text-align: center;
+}
+
+.order-button{
+    background-color: #3d6b35;
+    color: white;
+    padding: 14px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.order-button:hover {
+    background-color: #2f5229;
+}
+
+.card {
+    background: white;
+    max-width: 520px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.form {
+    background: white;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.form label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.form input, .form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form textarea{
+    resize: vertical;
+}
+
+.link {
+    display: inline-block;
+    margin-top: 18px;
+    color: #3d6b35;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logo {
+    max-width: 420px;
+    width: 90%;
+    display: block;
+    margin: 20px auto;
+    background-color: transparent;
+}
+
+header {
+    display: none;
+}
+
+img {
+    background: transparent;
+}

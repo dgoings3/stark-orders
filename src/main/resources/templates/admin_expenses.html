@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Expenses</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Expenses</h2>
+
+    <form class="form" method="post" th:action="@{/admin/expenses}">
+        <label>Cost of Chicks</label>
+        <input type="number" name="chicksCost" min="0" step="0.01" th:value="${expense.chicksCost}" required>
+
+        <label>Feed</label>
+        <input type="number" name="feedCost" min="0" step="0.01" th:value="${expense.feedCost}" required>
+
+        <label>Bedding</label>
+        <input type="number" name="beddingCost" min="0" step="0.01" th:value="${expense.beddingCost}" required>
+
+        <label>Labor</label>
+        <input type="number" name="laborCost" min="0" step="0.01" th:value="${expense.laborCost}" required>
+
+        <label>Misc</label>
+        <input type="number" name="miscCost" min="0" step="0.01" th:value="${expense.miscCost}" required>
+
+        <button class="order-button" type="submit">Save Expenses</button>
+    </form>
+
+    <a class="link" href="/admin/dashboard">Back to Dashboard</a>
+</div>
+</body>
+</html>

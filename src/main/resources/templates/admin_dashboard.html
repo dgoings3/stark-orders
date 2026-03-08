@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Business Dashboard</h2>
+
+    <div class="card">
+        <p><strong>Remaining Birds:</strong> <span th:text="${remaining}">0</span></p>
+        <p><strong>Total Birds Sold:</strong> <span th:text="${totalBirdsSold}">0</span></p>
+        <p><strong>Total Weight Sold:</strong> <span th:text="${totalWeightSold}">0.00</span> lbs</p>
+        <p><strong>Total Revenue:</strong> $<span th:text="${totalRevenue}">0.00</span></p>
+        <p><strong>Total Expenses:</strong> $<span th:text="${totalExpenses}">0.00</span></p>
+        <p><strong>Profit / Loss:</strong> $<span th:text="${profitOrLoss}">0.00</span></p>
+    </div>
+
+    <a class="link" href="/admin/orders">Active Orders</a>
+    <a class="link" href="/admin/history" style="margin-left:12px;">History</a>
+    <a class="link" href="/admin/expenses" style="margin-left:12px;">Expenses</a>
+    <a class="link" href="/admin/inventory" style="margin-left:12px;">Inventory</a>
+    <a class="link" href="/admin/change-password" style="margin-left:12px;">Change Password</a>
+</div>
+</body>
+</html>

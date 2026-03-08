@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order - Stark Naked Poultry</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <header>
+        <h1>Stark Naked Poultry</h1>
+    </header>
+
+    <div class="container">
+        <h2>Place an Order (Pay at Pickup)</h2>
+
+        <div class="card">
+            <h3>Whole Chicken</h3>
+            <p><strong>Price:</strong> $3.75 / lb</p>
+
+            <p style="font-size:14px; color:#555;">
+                Chickens average about <strong>5 lbs</strong> each. Final total is based on actual weight at pickup.
+            </p>
+
+            <p id="estimate" style="margin-top:8px; font-weight:bold;">
+                Estimated total: $18.75
+            </p>
+        </div>
+
+        <p><strong>Available birds:</strong> <span th:text="${remaining}">0</span></p>
+        <p><strong>Price:</strong> $3.75 / lb (final total calculated at pickup)</p>
+
+        <p th:if="${error}" style="color:#b00020; font-weight:600;" th:text="${error}"></p>
+
+        <form th:action="@{/checkout}" method="post" class="form">
+            <label>Full Name</label>
+            <input type="text" name="customerName" required>
+
+            <label>Phone Number</label>
+            <input type="tel" name="phone" required>
+
+            <label>Quantity</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="20" value="1" required>
+
+            <label>Pickup Date</label>
+            <input type="date" name="pickupDate" required>
+
+            <label>Pickup Time</label>
+            <input type="time" name="pickupTime" required>
+
+            <label>Notes (optional)</label>
+            <textarea name="notes" rows="4" placeholder="Optional pickup instructions..."></textarea>
+
+            <button class="order-button" type="submit">Submit Order</button>
+        </form>
+
+        <p style="margin-top: 20px; font-size: 14px;">
+            Payment is due at pickup.
+        </p>
+
+        <a href="/" class="link">Back to Home</a>
+    </div>
+
+    <script>
+        const pricePerLb = 3.75;
+        const avgWeight = 5;
+
+        function updateEstimate() {
+            const qtyInput = document.getElementById("quantity");
+            const qty = parseInt(qtyInput.value) || 1;
+            const estimate = qty * avgWeight * pricePerLb;
+
+            document.getElementById("estimate").innerText =
+                "Estimated total: $" + estimate.toFixed(2);
+        }
+
+        document.getElementById("quantity").addEventListener("input", updateEstimate);
+        updateEstimate();
+    </script>
+
+</body>
+</html>

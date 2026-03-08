@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order Received - Stark Naked Poultry</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <header>
+        <h1>Stark Naked Poultry</h1>
+    </header>
+
+    <div class="container">
+        <h2>Order Received ✅</h2>
+
+        <p>Thanks, <strong th:text="${customerName}">Customer</strong>! Your order has been submitted.</p>
+
+        <div class="card">
+            <p><strong>Item:</strong> Whole Chicken</p>
+            <p><strong>Quantity:</strong> <span th:text="${quantity}">1</span></p>
+            <p><strong>Pickup:</strong> <span th:text="${pickupDateTime}">date/time</span></p>
+        </div>
+
+        <p>Please pay at pickup.</p>
+
+        <a href="/" class="link">Back to Home</a>
+    </div>
+
+</body>
+</html>
