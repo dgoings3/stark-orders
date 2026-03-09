@@ -21,8 +21,12 @@
         <label>Labor</label>
         <input type="number" name="laborCost" min="0" step="0.01" th:value="${expense.laborCost}" required>
 
-        <label>Misc</label>
+        <label>Misc Total</label>
         <input type="number" name="miscCost" min="0" step="0.01" th:value="${expense.miscCost}" required>
+
+        <label>Misc Info</label>
+        <textarea name="miscInfo" rows="5" placeholder="Example: $12.00 Apple vinegar&#10;$10.00 heat light bulbs etc"
+                  th:text="${expense.miscInfo}"></textarea>
 
         <button class="order-button" type="submit">Save Expenses</button>
     </form>

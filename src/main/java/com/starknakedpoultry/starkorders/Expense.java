@@ -17,6 +17,9 @@ public class Expense {
     private Double laborCost = 0.0;
     private Double miscCost = 0.0;
 
+    @Column(length = 1000)
+    private String miscInfo = "";
+
     private LocalDateTime updatedAt;
 
     @PrePersist
@@ -25,26 +28,62 @@ public class Expense {
         updatedAt = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Double getChicksCost() { return chicksCost; }
-    public void setChicksCost(Double chicksCost) { this.chicksCost = chicksCost; }
+    public Double getChicksCost() {
+        return chicksCost;
+    }
 
-    public Double getFeedCost() { return feedCost; }
-    public void setFeedCost(Double feedCost) { this.feedCost = feedCost; }
+    public void setChicksCost(Double chicksCost) {
+        this.chicksCost = chicksCost;
+    }
 
-    public Double getBeddingCost() { return beddingCost; }
-    public void setBeddingCost(Double beddingCost) { this.beddingCost = beddingCost; }
+    public Double getFeedCost() {
+        return feedCost;
+    }
 
-    public Double getLaborCost() { return laborCost; }
-    public void setLaborCost(Double laborCost) { this.laborCost = laborCost; }
+    public void setFeedCost(Double feedCost) {
+        this.feedCost = feedCost;
+    }
 
-    public Double getMiscCost() { return miscCost; }
-    public void setMiscCost(Double miscCost) { this.miscCost = miscCost; }
+    public Double getBeddingCost() {
+        return beddingCost;
+    }
 
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setBeddingCost(Double beddingCost) {
+        this.beddingCost = beddingCost;
+    }
 
-    @Transient
+    public Double getLaborCost() {
+        return laborCost;
+    }
+
+    public void setLaborCost(Double laborCost) {
+        this.laborCost = laborCost;
+    }
+
+    public Double getMiscCost() {
+        return miscCost;
+    }
+
+    public void setMiscCost(Double miscCost) {
+        this.miscCost = miscCost;
+    }
+
+    public String getMiscInfo() {
+        return miscInfo;
+    }
+
+    public void setMiscInfo(String miscInfo) {
+        this.miscInfo = miscInfo;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
     public double getTotalExpenses() {
         return safe(chicksCost) + safe(feedCost) + safe(beddingCost) + safe(laborCost) + safe(miscCost);
     }

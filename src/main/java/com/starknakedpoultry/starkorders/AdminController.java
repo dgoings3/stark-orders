@@ -75,7 +75,8 @@ public class AdminController {
                                  @RequestParam double feedCost,
                                  @RequestParam double beddingCost,
                                  @RequestParam double laborCost,
-                                 @RequestParam double miscCost) {
+                                 @RequestParam double miscCost,
+                                 @RequestParam(required = false) String miscInfo) {
         Expense expense = expenseRepository.findAll().stream().findFirst().orElseThrow();
 
         expense.setChicksCost(Math.max(0, chicksCost));
@@ -83,10 +84,11 @@ public class AdminController {
         expense.setBeddingCost(Math.max(0, beddingCost));
         expense.setLaborCost(Math.max(0, laborCost));
         expense.setMiscCost(Math.max(0, miscCost));
+        expense.setMiscInfo(miscInfo == null ? "" : miscInfo.trim());
 
         expenseRepository.save(expense);
 
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/expenses";
     }
 
     @GetMapping("/inventory")
