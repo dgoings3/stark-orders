@@ -6,32 +6,64 @@
 </head>
 <body>
 <div class="container">
-    <h2>Expenses</h2>
+
+    <h2>Add Expense</h2>
 
     <form class="form" method="post" th:action="@{/admin/expenses}">
-        <label>Cost of Chicks</label>
-        <input type="number" name="chicksCost" min="0" step="0.01" th:value="${expense.chicksCost}" required>
+        <label>Category</label>
+        <select name="category" required>
+            <option value="Chicks">Chicks</option>
+            <option value="Feed">Feed</option>
+            <option value="Bedding">Bedding</option>
+            <option value="Labor">Labor</option>
+            <option value="Misc">Misc</option>
+        </select>
 
-        <label>Feed</label>
-        <input type="number" name="feedCost" min="0" step="0.01" th:value="${expense.feedCost}" required>
+        <label>Description / Info</label>
+        <input type="text" name="info" placeholder="Example: Apple vinegar" required>
 
-        <label>Bedding</label>
-        <input type="number" name="beddingCost" min="0" step="0.01" th:value="${expense.beddingCost}" required>
+        <label>Amount</label>
+        <input type="number" name="amount" step="0.01" min="0" required>
 
-        <label>Labor</label>
-        <input type="number" name="laborCost" min="0" step="0.01" th:value="${expense.laborCost}" required>
-
-        <label>Misc Total</label>
-        <input type="number" name="miscCost" min="0" step="0.01" th:value="${expense.miscCost}" required>
-
-        <label>Misc Info</label>
-        <textarea name="miscInfo" rows="5" placeholder="Example: $12.00 Apple vinegar&#10;$10.00 heat light bulbs etc"
-                  th:text="${expense.miscInfo}"></textarea>
-
-        <button class="order-button" type="submit">Save Expenses</button>
+        <button class="order-button" type="submit">Add Expense</button>
     </form>
 
+    <h2>Expense History</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Category</th>
+            <th>Info</th>
+            <th>Amount</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="expense : ${expenses}">
+            <td th:text="${expense.category}"></td>
+            <td th:text="${expense.info}"></td>
+            <td th:text="${expense.amount}"></td>
+
+            <td>
+                <a th:href="@{'/admin/expenses/' + ${expense.id} + '/edit'}">Edit</a>
+
+                <form th:action="@{'/admin/expenses/' + ${expense.id} + '/delete'}"
+                      method="post"
+                      style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Total Expenses: $<span th:text="${totalExpenses}"></span></h3>
+
+    <br>
     <a class="link" href="/admin/dashboard">Back to Dashboard</a>
+
 </div>
 </body>
 </html>

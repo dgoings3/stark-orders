@@ -11,84 +11,46 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double chicksCost = 0.0;
-    private Double feedCost = 0.0;
-    private Double beddingCost = 0.0;
-    private Double laborCost = 0.0;
-    private Double miscCost = 0.0;
+    private String category;
+    private String info;
+    private Double amount;
 
-    @Column(length = 1000)
-    private String miscInfo = "";
-
-    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
 
     @PrePersist
-    @PreUpdate
-    public void onSave() {
-        updatedAt = LocalDateTime.now();
+    public void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
     public Long getId() {
         return id;
     }
 
-    public Double getChicksCost() {
-        return chicksCost;
+    public String getCategory() {
+        return category;
     }
 
-    public void setChicksCost(Double chicksCost) {
-        this.chicksCost = chicksCost;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public Double getFeedCost() {
-        return feedCost;
+    public String getInfo() {
+        return info;
     }
 
-    public void setFeedCost(Double feedCost) {
-        this.feedCost = feedCost;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
-    public Double getBeddingCost() {
-        return beddingCost;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setBeddingCost(Double beddingCost) {
-        this.beddingCost = beddingCost;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
-    public Double getLaborCost() {
-        return laborCost;
-    }
-
-    public void setLaborCost(Double laborCost) {
-        this.laborCost = laborCost;
-    }
-
-    public Double getMiscCost() {
-        return miscCost;
-    }
-
-    public void setMiscCost(Double miscCost) {
-        this.miscCost = miscCost;
-    }
-
-    public String getMiscInfo() {
-        return miscInfo;
-    }
-
-    public void setMiscInfo(String miscInfo) {
-        this.miscInfo = miscInfo;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public double getTotalExpenses() {
-        return safe(chicksCost) + safe(feedCost) + safe(beddingCost) + safe(laborCost) + safe(miscCost);
-    }
-
-    private double safe(Double value) {
-        return value == null ? 0.0 : value;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

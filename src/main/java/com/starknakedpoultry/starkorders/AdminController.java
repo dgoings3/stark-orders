@@ -49,8 +49,11 @@ public class AdminController {
                 .mapToInt(Order::getQuantity)
                 .sum();
 
-        Expense expense = expenseRepository.findAll().stream().findFirst().orElseThrow();
-        double totalExpenses = expense.getTotalExpenses();
+        double totalExpenses = expenseRepository.findAll()
+                .stream()
+                .mapToDouble(expense -> expense.getAmount() == null ? 0.0 : expense.getAmount())
+                .sum();
+
         double profitOrLoss = totalRevenue - totalExpenses;
 
         model.addAttribute("remaining", inventoryRepository.findById(1L).orElseThrow().getBirdsRemaining());
@@ -65,29 +68,60 @@ public class AdminController {
 
     @GetMapping("/expenses")
     public String expensesPage(Model model) {
-        Expense expense = expenseRepository.findAll().stream().findFirst().orElseThrow();
-        model.addAttribute("expense", expense);
+        model.addAttribute("expenses", expenseRepository.findAllByOrderByCreatedAtDesc());
+        model.addAttribute("expense", new Expense());
+
+        double totalExpenses = expenseRepository.findAll()
+                .stream()
+                .mapToDouble(expense -> expense.getAmount() == null ? 0.0 : expense.getAmount())
+                .sum();
+
+        model.addAttribute("totalExpenses", String.format("%.2f", totalExpenses));
+
         return "admin_expenses";
     }
 
     @PostMapping("/expenses")
-    public String updateExpenses(@RequestParam double chicksCost,
-                                 @RequestParam double feedCost,
-                                 @RequestParam double beddingCost,
-                                 @RequestParam double laborCost,
-                                 @RequestParam double miscCost,
-                                 @RequestParam(required = false) String miscInfo) {
-        Expense expense = expenseRepository.findAll().stream().findFirst().orElseThrow();
+    public String addExpense(@RequestParam String category,
+                             @RequestParam String info,
+                             @RequestParam Double amount) {
 
-        expense.setChicksCost(Math.max(0, chicksCost));
-        expense.setFeedCost(Math.max(0, feedCost));
-        expense.setBeddingCost(Math.max(0, beddingCost));
-        expense.setLaborCost(Math.max(0, laborCost));
-        expense.setMiscCost(Math.max(0, miscCost));
-        expense.setMiscInfo(miscInfo == null ? "" : miscInfo.trim());
+        Expense expense = new Expense();
+        expense.setCategory(category);
+        expense.setInfo(info);
+        expense.setAmount(amount == null ? 0.0 : Math.max(0, amount));
 
         expenseRepository.save(expense);
 
+        return "redirect:/admin/expenses";
+    }
+
+    @GetMapping("/expenses/{id}/edit")
+    public String editExpenseForm(@PathVariable Long id, Model model) {
+        Expense expense = expenseRepository.findById(id).orElseThrow();
+        model.addAttribute("expense", expense);
+        return "admin_edit_expense";
+    }
+
+    @PostMapping("/expenses/{id}/edit")
+    public String updateExpense(@PathVariable Long id,
+                                @RequestParam String category,
+                                @RequestParam String info,
+                                @RequestParam Double amount) {
+
+        Expense expense = expenseRepository.findById(id).orElseThrow();
+        expense.setCategory(category);
+        expense.setInfo(info);
+        expense.setAmount(amount == null ? 0.0 : Math.max(0, amount));
+
+        expenseRepository.save(expense);
+
+        return "redirect:/admin/expenses";
+    }
+
+    @PostMapping("/expenses/{id}/delete")
+    public String deleteExpense(@PathVariable Long id) {
+        expenseRepository.deleteById(id);
         return "redirect:/admin/expenses";
     }
 
