@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Expense</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Edit Expense</h2>
+
+    <form class="form"
+          method="post"
+          th:action="@{'/admin/expenses/' + ${expense.id} + '/edit'}">
+
+        <label>Category</label>
+        <select name="category" required>
+            <option value="Chicks" th:selected="${expense.category == 'Chicks'}">Chicks</option>
+            <option value="Feed" th:selected="${expense.category == 'Feed'}">Feed</option>
+            <option value="Bedding" th:selected="${expense.category == 'Bedding'}">Bedding</option>
+            <option value="Labor" th:selected="${expense.category == 'Labor'}">Labor</option>
+            <option value="Misc" th:selected="${expense.category == 'Misc'}">Misc</option>
+        </select>
+
+        <label>Description / Info</label>
+        <input type="text"
+               name="info"
+               th:value="${expense.info}"
+               required>
+
+        <label>Amount</label>
+        <input type="number"
+               name="amount"
+               step="0.01"
+               min="0"
+               th:value="${expense.amount}"
+               required>
+
+        <button class="order-button" type="submit">Save Changes</button>
+
+    </form>
+
+    <br>
+    <a class="link" href="/admin/expenses">Back to Expenses</a>
+
+</div>
+
+</body>
+</html>
