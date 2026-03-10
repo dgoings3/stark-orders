@@ -14,14 +14,6 @@ public class ExpenseInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (expenseRepository.count() == 0) {
-            Expense expense = new Expense();
-            expense.setChicksCost(0.0);
-            expense.setFeedCost(0.0);
-            expense.setBeddingCost(0.0);
-            expense.setLaborCost(0.0);
-            expense.setMiscCost(0.0);
-            expenseRepository.save(expense);
-        }
+        // Leave blank for now so no old expense data gets seeded
     }
 }
